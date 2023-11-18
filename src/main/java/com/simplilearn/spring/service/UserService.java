@@ -1,6 +1,7 @@
 package com.simplilearn.spring.service;
 
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -21,15 +22,13 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    /*
-    public List<User> list() {
 
-        /*
-         * Add some Business Logic to process the list.
-         */
+    public List<User> listUsers() {
 
-        //return this.userRepository.findAll();
-    //}
+        return this.userRepository.findAll().stream()
+                   .map(UserService::mapUser)
+                   .toList();
+    }
 
     /*
     public void createUser(User user) {
