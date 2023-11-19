@@ -30,14 +30,6 @@ public class UserService {
                    .toList();
     }
 
-    /*
-    public void createUser(User user) {
-
-        this.validateUser(user);
-
-        user.setStatus("A");
-        this.userRepository.save(user);
-    }*/
 
     public User findUser(String username) {
         return this.userRepository.findByUsernameIgnoreCase(username)
@@ -45,8 +37,17 @@ public class UserService {
                          .orElse(null);
     }
 
-    /*
-    public void updateUser(User user) {
+
+    public User createUser(com.simplilearn.spring.jpa.User user) {
+
+        this.validateUser(user);
+
+        this.userRepository.save(user);
+
+        return UserService.mapUser(user);
+    }
+
+    public User updateUser(com.simplilearn.spring.jpa.User user) {
 
         this.validateUser(user);
 
@@ -59,7 +60,9 @@ public class UserService {
 
                                   this.userRepository.save(u);
                               });
-    }*/
+
+        return UserService.mapUser(user);
+    }
 
     public void deleteUser(int idUser) {
         this.userRepository.deleteById(idUser);
@@ -90,7 +93,7 @@ public class UserService {
         return user;
     }
 
-    private void validateUser(User user) {
+    private void validateUser(com.simplilearn.spring.jpa.User user) {
         if (user.getFirstName().isEmpty() ||
             user.getLastName().isEmpty() ||
             user.getUsername().isEmpty()) {
